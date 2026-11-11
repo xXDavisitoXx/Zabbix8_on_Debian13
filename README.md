@@ -179,7 +179,7 @@ zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u postgres p
 ### Execute schema optimization TimeScaleDB:
 
 ```bash
- sudo -u postgres psql -d dbzabbix -f /usr/share/zabbix/sql-scripts/postgresql/timescaledb/schema.sql
+ sudo -u postgres psql -d datazabbixdb -f /usr/share/zabbix/sql-scripts/postgresql/timescaledb/schema.sql
 ```
 
 ❌ If you missed any of these steps or something went wrong, the best approach is to drop the database and recreate it following the previous steps
