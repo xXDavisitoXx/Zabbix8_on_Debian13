@@ -57,7 +57,7 @@ apt install rsync sudo gnupg curl locales
 Debian13 uses PostgreSQL17 by default. If you use another Linux distribution or install the PostgreSQL repositories, the version may be 18. In our guide, stability takes priority over everything else, and this is what Debian recommends
 ```bash
 sudo apt update
-sudo apt install postgresql postgresql-contrib
+sudo apt install postgresql
 ```
 ## :toolbox: Configure PostgreSQL 
 
