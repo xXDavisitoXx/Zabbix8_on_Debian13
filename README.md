@@ -266,19 +266,73 @@ DBUser=usrzabbixdb
 
 DBPassword=YOUR_PASSWORD_DB_USER
 ```
-### Enable global scripts:
-This will enable commands such as right-clicking on hosts and using the ping button
+### Configure language for Zabbix frontend:
+For Zabbix to support any language, it must be installed on the operating system. By default, we will install en_US.UTF-8 and es_ES.UTF-8, as they are the most widely used worldwide
+
+:warning: In the language selector, if you want a language other than English, you must install it first on the operating system and then restart the Zabbix and PHP services.
 ```bash
-sudo nano /etc/zabbix/zabbix_server.conf
+sudo dpkg-reconfigure locales
+```
+ Inside the menu, for example select:
+
+```bash
+Generating locales (this might take a while)...
+  en_US.UTF-8... done
+  es_ES.UTF-8... done
+Generation complete.
+ ```
+✔️  Restart terminal session to apply
+
+Then, optionally, you can set it as the system’s default locale:
+After that, you can verify it with:
+```bash
+locale
+ ```
+```bash
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+ ```
+## :desktop_computer: Configure Nginx for Zabbix frontend:
+Uncomment the listen and server_name lines with the parameters that will be used in the URL; this can be a DNS name or an IP address:
+```bash
+sudo nano /etc/zabbix/nginx.conf
 ```
 ```bash
-### Option: EnableGlobalScripts
-#    Enable global scripts on Zabbix server.
-#       0 - disable
-#       1 - enable
-#
-# Mandatory: no
-# Default:
-EnableGlobalScripts=1
-# EnableGlobalScripts=0
+server {
+        listen          8080;
+        server_name     192.168.1.100;
+```
+Restart web services:
+```bash
+systemctl restart postgresq zabbix-server php8.4-fpm nginx zabbix-agent2 
+```
+If after restarting all services any of them fail, review the steps carefully until everything works correctly. On the other hand, if after restarting there are no errors, you will be able to access via the web at http://YOUR_IP:8080 and proceed with the final server configuration.
+### 
+Enable services: 
+```bash
+systemctl enable postgresq zabbix-server php8.4-fpm nginx zabbix-agent2 
+```
+Check ports avaliable:
+Make sure that the services are active and listening on the correct port:
+```bash
+ss -tnlp
+```
+```bash
+State              Recv-Q             Send-Q                         Local Address:Port                          Peer Address:Port            Process                                                                                   
+LISTEN             0                  511                                  0.0.0.0:8080                               0.0.0.0:*                users:(("nginx",pid=27577,fd=5),("nginx",pid=27576,fd=5),("nginx",pid=27575,fd=5))       LISTEN             0                  200                                127.0.0.1:5432                               0.0.0.0:*                users:(("postgres",pid=27596,fd=7))                                                      LISTEN             0                  511                                  0.0.0.0:80                                 0.0.0.0:*                users:(("nginx",pid=27577,fd=6),("nginx",pid=27576,fd=6),("nginx",pid=27575,fd=6))       LISTEN             0                  100                                127.0.0.1:25                                 0.0.0.0:*                users:(("master",pid=11203,fd=13))                                                      
+LISTEN             0                  4096                                       *:10050                                    *:*                users:(("zabbix_agent2",pid=27607,fd=8))                                                 
+LISTEN             0                  4096                                       *:22                                       *:*                users:(("sshd",pid=1356,fd=3),("systemd",pid=1,fd=89))                                   
 ```
