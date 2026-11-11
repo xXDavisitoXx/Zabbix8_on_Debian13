@@ -104,6 +104,7 @@ Create user usrzabbixdb:
 ```bash
 sudo -u postgres createuser --pwprompt usrzabbixdb
 ```
+
 ⚠️ Save the password you set for later use
 
 Create database datazabbixdb:
