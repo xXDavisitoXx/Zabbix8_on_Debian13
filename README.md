@@ -49,11 +49,6 @@ apt update
 apt install rsync sudo gnupg curl locales
 ```
 
-Add our system user to sudo:
-```bash
-usermod -aG sudo YOUR_USER
-```
-
 👁️ Now that our normal user has the necessary permissions to carry everything out, we will log out from the root account. If we had a session started with our normal user, we will also log out and log back in so that the sudo group permissions take effect. From this point on, we will no longer use the root user throughout the tutorial
 
 ---
