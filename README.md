@@ -151,7 +151,7 @@ sudo apt update
 ```
 Install TimeScaleDB from APT:
 ```bash
-  apt install timescaledb-2-2.29.2-postgresql-17 timescaledb-2-loader-postgresql-17 
+  apt install timescaledb-2-2.29.2-postgresql-17  timescaledb-2-loader-postgresql-17=2.29.2~debian13-1711
 ```
 ## :clock12: Configure TimeScaleDB
 Now, with all the software installed on the server, we proceed to its configuration so that all the components fit together perfectly.
@@ -169,6 +169,7 @@ Activate TimeScaleDB on datazabbixdb:
 ```bash
 sudo -u postgres psql -d datazabbixdb -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
 ```
+✔️ CREATE EXTENSION
 
 ### Import schema database
 ```bash
