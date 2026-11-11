@@ -123,10 +123,5 @@ sudo apt update
 
 Install packages:
 ```bash
-sudo apt install zabbix-server-pgsql zabbix-frontend-php php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 nginx
-```
-
-Install Postgresql Plugin:
-```bash
- apt install zabbix-agent2-plugin-postgresql
+sudo apt install zabbix-server-pgsql zabbix-frontend-php php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 zabbix-agent2-plugin-postgresql nginx
 ```
