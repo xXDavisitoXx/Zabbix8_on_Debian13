@@ -46,7 +46,7 @@
 ### Install basic system packages:
 ```bash
 apt update
-apt install rsync sudo gnupg curl locales iproute2
+apt install rsync sudo gnupg curl locales
 ```
 
 Add our system user to sudo:
