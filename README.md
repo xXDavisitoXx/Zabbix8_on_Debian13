@@ -137,13 +137,13 @@ Using TimescaleDB is essential if you are going to monitor a medium or large env
 
 Download the repository keys:
 ```bash
-sudo curl -fsSL https://packagecloud.io/timescale/timescaledb/gpgkey \
+sudo curl -fSL https://packagecloud.io/timescale/timescaledb/gpgkey \
 | sudo gpg --dearmor -o /usr/share/keyrings/timescaledb.gpg
 ```
 Install the repository of TimeScaleDB:
 ```bash
 echo "deb [signed-by=/usr/share/keyrings/timescaledb.gpg] https://packagecloud.io/timescale/timescaledb/debian/ trixie main" \
-| sudo tee /etc/apt/sources.list.d/timescaledb.sources > /dev/null
+| sudo tee /etc/apt/sources.list.d/timescaledb.list
 ```
 Refresh APT:
 ```bash
