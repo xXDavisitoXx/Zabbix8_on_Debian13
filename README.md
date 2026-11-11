@@ -191,22 +191,23 @@ Test TimeScaleDB:
 This test confirms that TimescaleDB is working in Zabbix because it verifies that the historical tables (such as history or trends) have been converted into hypertables, which is TimescaleDB’s special format for handling time-series data. If these tables appear in the query results, it means the extension is active, properly integrated into the database, and managing automatic time-based partitioning.
 
 ```bash
- sudo -u postgres psql -d datazabbixdb -c "SELECT hypertable_name FROM timescaledb_information.hypertables;"
+sudo -u postgres psql -d datazabbixdb -c "SELECT * FROM timescaledb_information.hypertables;"
 ```
-Correct result:
+💚:Correct result:
 ```bash
-  hypertable_name
------------------
- history
- history_uint
- history_log
- history_text
- history_str
- history_bin
- auditlog
- trends
- trends_uint
-(9 filas)
+   hypertable_schema | hypertable_name |  owner   | num_dimensions | num_chunks | compression_enabled | tablespaces | primary_dimension | primary_dimension_type 
+-------------------+-----------------+----------+----------------+------------+---------------------+-------------+-------------------+------------------------
+ public            | history         | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_uint    | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_log     | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_text    | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_str     | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_bin     | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | history_json    | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | auditlog        | postgres |              1 |          0 | f                   |             | auditid           | character varying
+ public            | trends          | postgres |              1 |          0 | f                   |             | clock             | integer
+ public            | trends_uint     | postgres |              1 |          0 | f                   |             | clock             | integer
+(10 rows)
 ```
 ### Skip TimescaleDB version restriction:
 ⚠️ This step is only necessary if you have installed software versions that Zabbix does not support by default. Use it at your own risk; we include it so you are aware that it exists.
