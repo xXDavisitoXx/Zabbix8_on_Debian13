@@ -234,9 +234,6 @@ sudo nano /etc/zabbix/zabbix_server.conf
 ```bash
 ### Option: DBName
 #       Database name.
-#       If the Net Service Name connection method is used to connect to Oracle database, specify the service name from
-#       the tnsnames.ora file or set to empty string; also see the TWO_TASK environment variable if DBName is set to
-#       empty string.
 #
 # Mandatory: yes
 # Default:
@@ -266,6 +263,7 @@ DBUser=usrzabbixdb
 #
 # Mandatory: no
 # Default:
+
 DBPassword=YOUR_PASSWORD_DB_USER
 ```
 ### Enable global scripts:
