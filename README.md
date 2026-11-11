@@ -78,6 +78,7 @@ sudo mkdir -p /mnt/storedb/postgresql/17/main/ # Or the custom path where you wa
 sudo rsync -av /var/lib/postgresql/17/main/ /mnt/storedb/postgresql/17/main/
 sudo chown -R postgres:postgres /mnt/storedb/postgresql
 ```
+
 Edit data directory:
 ```bash
  sudo nano /etc/postgresql/17/main/postgresql.conf
@@ -85,10 +86,12 @@ Edit data directory:
 ```bash
 data_directory = '/mnt/storedb/postgresql/17/main'  # use data in another directory
 ```
+
 Start database service:
 ```bash
 sudo systemctl start postgresql
 ```
+
 ### Test new database config:
 When executing the command, the new path we created for the database directory should be reflected.
 ```bash
@@ -98,7 +101,8 @@ sudo pg_lsclusters
 Ver Cluster Port Status Owner    Data directory              Log file
 17  main    5432 online postgres /mnt/storedb/postgresql/17/main /var/log/postgresql/postgresql-17-main.log
 ```
-### Configure database acces:
+
+### Configure database access:
 In most step-by-step guides, the credentials are usually zabbix / zabbix. This often creates confusion between the system user, the database user, or even within the command syntax that follows. We have changed the names for a much more secure installation and one that is easier to understand
 
 Create user usrzabbixdb:
@@ -170,27 +174,15 @@ Activate TimeScaleDB on datazabbixdb:
 sudo -u postgres psql -d datazabbixdb -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
 ```
 
-### Import schema database:
-⚠️ The paths for importing the database schemas changed starting from Zabbix 7.4, use one or the other depending on the installation you want
+### Import schema database
+```bash
+zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+```
 
-If you use Zabbix 7.0 LTS:
-```bash
-zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | psql -U usrzabbixdb -d datazabbixdb -h localhost
-```
-If you use Zabbix7.4:
-```bash
-zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | psql -U usrzabbixdb -d datazabbixdb -h localhost
-```
 ### Execute schema optimization TimeScaleDB:
 
-⚠️ The paths for executing schema optimizations changed starting from Zabbix 7.4
-If you use Zabbix 7.0 LTS:
 ```bash
-sudo -u postgres psql -d datazabbixdb -f /usr/share/zabbix-sql-scripts/postgresql/timescaledb/schema.sql
-```
-If you use Zabbix7.4:
-```bash
-sudo -u postgres psql -d datazabbixdb -f /usr/share/zabbix/sql-scripts/postgresql/timescaledb/schema.sql
+ sudo -u postgres psql -d dbzabbix -f /usr/share/zabbix/sql-scripts/postgresql/timescaledb/schema.sql
 ```
 
 ❌ If you missed any of these steps or something went wrong, the best approach is to drop the database and recreate it following the previous steps
