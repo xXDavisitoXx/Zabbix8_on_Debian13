@@ -70,8 +70,8 @@ We have previously created a 20GB disk and mounted it as ext4 at /mnt/storedb
 ```bash
 sudo systemctl stop postgresql
 sudo mkdir -p /mnt/storedb/postgresql/17/main/ # Or the custom path where you want the database to live
-sudo rsync -av /var/lib/postgresql/17/main/ /mnt/storedb/postgresql/17/main/
-sudo chown -R postgres:postgres /mnt/storedb/postgresql
+sudo rsync -av /var/lib/postgresql/17/main/ /mnt/storedb/postgresql/17/main/ # Or the custom path where you want the database to live
+sudo chown -R postgres:postgres /mnt/storedb/postgresql # Or the custom path where you want the database to live
 ```
 
 Edit data directory:
