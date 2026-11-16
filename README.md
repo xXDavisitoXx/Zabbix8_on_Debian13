@@ -317,13 +317,13 @@ server {
 ```
 Restart web services:
 ```bash
-systemctl restart postgresq zabbix-server php8.4-fpm nginx zabbix-agent2 
+systemctl restart postgresql zabbix-server php8.4-fpm nginx zabbix-agent2 
 ```
 If after restarting all services any of them fail, review the steps carefully until everything works correctly. On the other hand, if after restarting there are no errors, you will be able to access via the web at http://YOUR_IP:8080 and proceed with the final server configuration.
 ### 
 Enable services: 
 ```bash
-systemctl enable postgresq zabbix-server php8.4-fpm nginx zabbix-agent2 
+systemctl enable postgresql zabbix-server php8.4-fpm nginx zabbix-agent2 
 ```
 Check ports avaliable:
 Make sure that the services are active and listening on the correct port:
