@@ -336,3 +336,61 @@ LISTEN             0                  511                                  0.0.0
 LISTEN             0                  4096                                       *:10050                                    *:*                users:(("zabbix_agent2",pid=27607,fd=8))                                                 
 LISTEN             0                  4096                                       *:22                                       *:*                users:(("sshd",pid=1356,fd=3),("systemd",pid=1,fd=89))                                   
 ```
+
+
+### Initial screen:
+Here we configure the language that Zabbix will use by default in the web interface (it can be changed later at any time from the options panel). The languages must be installed beforehand on the operating system in order to be selected (follow the "dpkg-reconfigure locales" section earlier in this guide). If you have not done so, you will need to install the corresponding language and restart the services again.
+![Portada Zabbix](Images/7-LTS/Zabbix7_1-portada.png)
+
+### Second screen, prerequisites
+Zabbix will check that all required components are installed in compatible versions. If you have followed this guide step by step, everything should appear as OK and you will only need to click “Next.” If anything is not OK, review it manually and restart the Zabbix services again.
+![Requisitos Zabbix](Images/7-LTS/Zabbix7_2-Requisitos.png)
+
+### Third screen, database connection
+Perhaps the most critical screen of the entire setup wizard, here we will enter the database credentials that we created when configuring PostgreSQL and that we added in /etc/zabbix/zabbix_server.conf so that the server’s PHP can connect to the database.
+If something is incorrect either in the guide or in the values entered in the fields, it will not allow us to proceed further.
+
+- Database type: PostgreSQL
+- Database host: localhost
+- Database port: 0 or 5432
+- Database name: datazabbixdb
+- Database schema: leave empty
+- Store credentials in: Plain text
+- User: usrzabbixdb
+- Password: The password you created when setting up the “usrzabbixdb” user in PostgreSQL
+- Database TLS encryption: Activated
+  
+![Config DB Zabbix](Images/7-LTS/Zabbix7_3-ConfigDB.png)
+
+### Fourth screen, server settings
+In this screen, we will configure the server name, the time zone we belong to, and the color theme of the web application. For me, the dark theme will always be the best, but this is a matter of personal preference.
+
+- Zabbix server name: This is the name that will appear in the left sidebar when accessing Zabbix, acting as an identifier in case we have multiple Zabbix servers.
+- Default time zone: Time zone to which the server belongs. This field is important because it affects the timestamps of logs and the timeline of events and incidents recorded on the server.
+- Default theme: Color theme that the web application will use. Personally, I find the dark theme to be the most suitable, but this ultimately comes down to personal preference.
+
+![Time Zabbix](Images/7-LTS/Zabbix7_4-Time.png)
+
+### Fifth screen, Summary
+This screen is simply a summary of everything we have entered in the wizard before clicking the final confirmation button, with a particular focus on the information provided in the database connection section.
+
+![Summary Zabbix](Images/7-LTS/Zabbix7_5-Sumary.png)
+
+### Sixth and final screen, we are done
+If everything has gone correctly, our server is now ready for use and has created the file /etc/zabbix/web/zabbix.conf.php with all the parameters we entered in the wizard. 
+Congratulations! I hope you enjoy it a lot 🎉
+
+![Congrats Zabbix](Images/7-LTS/Zabbix7_6-Congrats.png)
+
+## :crossed_swords: Login
+Now that the installation is complete, we only need to log in to the web application using the default Zabbix credentials.
+
+- User: Admin
+- Pass: zabbix
+
+![Login Zabbix](Images/7-LTS/Zabbix7_7-login.png)
+
+## :telescope: Front
+From this point on, a world of endless possibilities and deep control over our infrastructure begins. We strongly recommend changing the default credentials of the web Admin user, adjusting the profile, customizing the frontend widgets, and creating users with roles tailored to each use case depending on who will manage the system. Security can never be taken too seriously, and the information handled by monitoring systems is often highly sensitive.
+
+![Front Zabbix](Images/7-LTS/Zabbix7_8-Front.png)
