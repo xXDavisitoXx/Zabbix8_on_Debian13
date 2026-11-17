@@ -374,7 +374,7 @@ In this screen, we will configure the server name, the time zone we belong to, a
 ### Fifth screen, Summary
 This screen is simply a summary of everything we have entered in the wizard before clicking the final confirmation button, with a particular focus on the information provided in the database connection section.
 
-![Summary Zabbix](Images/Zabbix8-LTS/5-Finish.png)
+![Summary Zabbix](Images/Zabbix8-LTS/5-Summary.png)
 
 ### Sixth and final screen, we are done
 If everything has gone correctly, our server is now ready for use and has created the file /etc/zabbix/web/zabbix.conf.php with all the parameters we entered in the wizard. 
