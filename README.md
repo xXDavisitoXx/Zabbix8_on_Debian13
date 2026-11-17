@@ -363,6 +363,16 @@ If something is incorrect either in the guide or in the values entered in the fi
 - Database TLS encryption: Activated
   
 ![Config DB Zabbix](Images/Zabbix8-LTS/3-DB-Connection.png)
+⚠️ If you have error to fetch DB version your user dont have permisions on the DB, fix with: 
+```sql
+su -
+su - postgres
+psql -d datazabbixdb
+GRANT CONNECT ON DATABASE datazabbixdb TO usrzabbixdb;
+GRANT USAGE ON SCHEMA public TO usrzabbixdb;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO usrzabbixdb;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO usrzabbixdb;
+```
 
 ### Fourth screen, server settings
 In this screen, we will configure the server name, the time zone we belong to, and the color theme of the web application. For me, the dark theme will always be the best, but this is a matter of personal preference.
