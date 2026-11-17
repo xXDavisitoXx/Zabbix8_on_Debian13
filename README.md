@@ -401,9 +401,11 @@ Now that the installation is complete, we only need to log in to the web applica
 - User: Admin
 - Pass: zabbix
 
-![Login Zabbix](Images/Zabbix8-LTS/7-login.png)
+![Login Zabbix](Images/Zabbix8-LTS/7-Login.png)
 
 ## :telescope: Front
 From this point on, a world of endless possibilities and deep control over our infrastructure begins. We strongly recommend changing the default credentials of the web Admin user, adjusting the profile, customizing the frontend widgets, and creating users with roles tailored to each use case depending on who will manage the system. Security can never be taken too seriously, and the information handled by monitoring systems is often highly sensitive.
 
 ![Front Zabbix](Images/Zabbix8-LTS/8-Dashboard.png)
+
+
