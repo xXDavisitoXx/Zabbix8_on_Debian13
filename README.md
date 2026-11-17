@@ -363,6 +363,7 @@ If something is incorrect either in the guide or in the values entered in the fi
 - Database TLS encryption: Activated
   
 ![Config DB Zabbix](Images/Zabbix8-LTS/3-DB-Connection.png)
+
 ⚠️ If you have error to fetch DB version your user dont have permisions on the DB, fix with: 
 ```sql
 su -
