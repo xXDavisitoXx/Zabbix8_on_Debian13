@@ -175,7 +175,10 @@ sudo -u postgres psql -d datazabbixdb -c "CREATE EXTENSION IF NOT EXISTS timesca
 ```bash
 zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u postgres psql -d datazabbixdb
 ```
-
+```bash
+zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | \
+PGPASSWORD='YOUR_PASSWORD_DB_USER' psql -h localhost -U usrzabbixdb -d datazabbixdb
+```
 ### Execute schema optimization TimeScaleDB:
 
 ```bash
