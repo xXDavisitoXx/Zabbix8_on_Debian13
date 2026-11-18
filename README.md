@@ -1,5 +1,5 @@
 # Zabbix8_on_Debian13
-
+Installation guide for Zabbix 8 LTS monitoring using PostgreSQL + Nginx + TimescaleDB, with an MPC server and new database plugins.
 
 ## :book: Index
 
