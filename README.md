@@ -412,6 +412,7 @@ From this point on, a world of endless possibilities and deep control over our i
 ## MCP server install
 
 ### Add repository
+Only perform this step if the Zabbix server installation repositories have not yet been added to the machine.
 ```bash
 wget https://repo.zabbix.com/zabbix/8.0/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_8.0+debian13_all.deb
 sudo dpkg -i zabbix-release_latest_8.0+debian13_all.deb
@@ -419,8 +420,17 @@ sudo apt update
 ```
 
 ### Install Zabbix MCP server
-
 ```bash
 sudo apt install zabbix-mcp-server
 ```
 
+Edit the file /etc/zabbix/zabbix_mcp_server.conf and set the FrontendURL and AllowedIP parameters
+```bash
+nano /etc/zabbix/zabbix_mcp_server.conf
+```
+
+Restart and enable the services
+```bash
+sudo systemctl restart zabbix-mcp-server
+sudo systemctl enable zabbix-mcp-server
+```
