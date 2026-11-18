@@ -173,9 +173,11 @@ sudo -u postgres psql -d datazabbixdb -c "CREATE EXTENSION IF NOT EXISTS timesca
 
 ### Import schema database
 ```bash
+zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u postgres psql -d datazabbixdb
+```
+```bash
 zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | psql -h localhost -U usrzabbixdb -d datazabbixdb
 ```
-
 ### Execute schema optimization TimeScaleDB:
 
 ```bash
@@ -406,4 +408,19 @@ From this point on, a world of endless possibilities and deep control over our i
 
 ![Front Zabbix](Images/Zabbix8-LTS/8-Dashboard.png)
 
+
+## MCP server install
+
+### Add repository
+```bash
+wget https://repo.zabbix.com/zabbix/8.0/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_8.0+debian13_all.deb
+sudo dpkg -i zabbix-release_latest_8.0+debian13_all.deb
+sudo apt update
+```
+
+### Install Zabbix MCP server
+
+```bash
+sudo apt install zabbix-mcp-server
+```
 
