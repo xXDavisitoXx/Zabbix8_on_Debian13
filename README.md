@@ -112,7 +112,7 @@ Create database datazabbixdb:
 sudo -u postgres createdb -O usrzabbixdb datazabbixdb
 ```
 
-### Install Zabbix server, frontend, Zabbix agent 2, Nginx 
+## Install Zabbix server, frontend, Zabbix agent 2, Nginx 
 
 Add Zabbix repository:
 ```bash
@@ -121,10 +121,17 @@ sudo dpkg -i zabbix-release_latest_8.0+debian13_all.deb
 sudo apt update
 ```
 
-Install packages:
+### Install server packages:
 ```bash
-sudo apt install zabbix-server-pgsql zabbix-frontend-php php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 zabbix-agent2-plugin-postgresql nginx
+sudo apt install zabbix-server-pgsql zabbix-frontendphp php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 nginx
 ```
+
+### Install server plugins
+Install the appropriate plugins, depending on the databases to be monitored.
+```bash
+sudo apt install zabbix-agent2-plugin-mongodb zabbix-agent2-plugin-mssql zabbix-agent2-plugin-postgresql
+```
+
 ### Install TimeScaleDB plugin:
 TimescaleDB is an extension for PostgreSQL that transforms it into a database optimized for time-series data. For Zabbix, it works by automatically splitting large history tables into time-based ‘chunks’, which are invisible to the user but extremely efficient for the system.
 
