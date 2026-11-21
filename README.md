@@ -127,7 +127,7 @@ sudo apt update
 
 ### Install server packages:
 ```bash
-sudo apt install zabbix-server-pgsql zabbix-frontendphp php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 nginx
+sudo apt install zabbix-server-pgsql zabbix-frontend-php php8.4-pgsql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2 nginx
 ```
 
 ### Install server plugins
