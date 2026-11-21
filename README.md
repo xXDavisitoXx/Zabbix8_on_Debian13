@@ -248,7 +248,6 @@ sudo nano /etc/zabbix/zabbix_server.conf
 # Mandatory: yes
 # Default:
 # DBName=
-
 DBName=datazabbixdb
 
 ### Option: DBSchema
@@ -264,7 +263,6 @@ DBName=datazabbixdb
 # Mandatory: no
 # Default:
 # DBUser=
-
 DBUser=usrzabbixdb
 
 ### Option: DBPassword
@@ -273,7 +271,7 @@ DBUser=usrzabbixdb
 #
 # Mandatory: no
 # Default:
-
+# DBPassword=
 DBPassword=YOUR_PASSWORD_DB_USER
 ```
 ### Configure language for Zabbix frontend:
