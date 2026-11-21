@@ -205,18 +205,18 @@ sudo -u postgres psql -d datazabbixdb -c "SELECT * FROM timescaledb_information.
 ```
 💚:Correct result:
 ```bash
-   hypertable_schema | hypertable_name |  owner   | num_dimensions | num_chunks | compression_enabled | tablespaces | primary_dimension | primary_dimension_type 
--------------------+-----------------+----------+----------------+------------+---------------------+-------------+-------------------+------------------------
- public            | history         | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_uint    | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_log     | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_text    | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_str     | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_bin     | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | history_json    | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | auditlog        | postgres |              1 |          0 | f                   |             | auditid           | character varying
- public            | trends          | postgres |              1 |          0 | f                   |             | clock             | integer
- public            | trends_uint     | postgres |              1 |          0 | f                   |             | clock             | integer
+ypertable_schema | hypertable_name |    owner    | num_dimensions | num_chunks | compression_enabled | tablespaces | primary_dimension | primary_dimension_type 
+-------------------+-----------------+-------------+----------------+------------+---------------------+-------------+-------------------+------------------------
+ public            | history         | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_uint    | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_log     | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_text    | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_str     | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_bin     | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | history_json    | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | auditlog        | usrzabbixdb |              1 |          0 | f                   |             | auditid           | character varying
+ public            | trends          | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
+ public            | trends_uint     | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
 (10 rows)
 ```
 ### Skip TimescaleDB version restriction:
