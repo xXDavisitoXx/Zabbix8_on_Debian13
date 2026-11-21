@@ -415,7 +415,7 @@ From this point on, a world of endless possibilities and deep control over our i
 ![Front Zabbix](Images/Zabbix8-LTS/8-Dashboard.png)
 
 
-## MCP server install
+## MCP server config
 
 ### Add repository
 Only perform this step if the Zabbix server installation repositories have not yet been added to the machine.
@@ -430,6 +430,7 @@ sudo apt update
 sudo apt install zabbix-mcp-server
 ```
 
+### Configure MCP server
 Edit the file /etc/zabbix/zabbix_mcp_server.conf and set the FrontendURL and AllowedIP parameters
 ```bash
 nano /etc/zabbix/zabbix_mcp_server.conf
