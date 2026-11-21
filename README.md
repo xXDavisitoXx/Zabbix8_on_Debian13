@@ -441,3 +441,26 @@ Restart and enable the services
 sudo systemctl restart zabbix-mcp-server
 sudo systemctl enable zabbix-mcp-server
 ```
+
+### PostgresQL Monitor Plugin server
+```bash
+sudo -u postgres createuser --pwprompt zbxagentdb
+```
+```text
+Enter password for new role:
+******
+Enter it again:
+******
+```
+
+Add permissions  user zbx_monitor to pg_monitor table:
+```bash
+sudo -u postgres psql -c "GRANT pg_monitor TO zbxagentdb;"
+```
+
+check permissions:
+```bash
+sudo -u postgres psql -c "\du zbxagentdb"
+```
+Deberías ver el rol pg_monitor entre sus atributos de pertenencia.
+
