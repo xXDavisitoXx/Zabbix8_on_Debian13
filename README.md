@@ -458,17 +458,23 @@ Add permissions  user zbx_monitor to pg_monitor table:
 sudo -u postgres psql -c "GRANT pg_monitor TO zbxagentdb;"
 ```
 
-check permissions:
-```bash
-sudo -u postgres psql -c "\du zbxagentdb"
-```
-Deberías ver el rol pg_monitor entre sus atributos de pertenencia.
-
-
 reload config
 ```bash
 sudo -u postgres psql -c "SELECT pg_reload_conf();"
 ```
+
+check permissions:
+```bash
+sudo -u postgres psql -c "SELECT roleid::regrole, member::regrole FROM pg_auth_members WHERE member = 'zbxagentdb'::regrole;"
+```
+```bash
+  roleid   |   member   
+------------+------------
+ pg_monitor | zbxagentdb
+(1 row)
+```
+
+Deberías ver el rol pg_monitor entre sus atributos de pertenencia.
 
 Intall credentials monitor on plugin
 ```bash
