@@ -464,3 +464,28 @@ sudo -u postgres psql -c "\du zbxagentdb"
 ```
 Deberías ver el rol pg_monitor entre sus atributos de pertenencia.
 
+
+reload config
+```bash
+sudo -u postgres psql -c "SELECT pg_reload_conf();"
+```
+
+Intall credentials monitor on plugin
+```bash
+nano /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
+```
+```bash
+Plugins.PostgreSQL.Sessions.zbxagentdb.Uri=tcp://127.0.0.1:5432
+Plugins.PostgreSQL.Sessions.zbxagentdb.User=zbxagentdb
+Plugins.PostgreSQL.Sessions.zbxagentdb.Password=YOUR-AGENT-PASS
+```
+🛡️ Protect credential file
+```bash
+chown root:zabbix /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
+chmod 640 /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
+```
+restart agent
+```bash
+systemctl restart zabbix-agent2
+systemctl status zabbix-agent2
+```
