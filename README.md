@@ -513,4 +513,10 @@ En Macros, configura:
 | `{$PG.PASSWORD}` | `YOUR-zbxagentdb-PASS` |
 | `{$PG.DATABASE}` | `postgres` |
 
-
+| Macro | Descripción | Valor |
+| :--- | :--- | :--- |
+| `{$PG.HOST}` | Hostname or IP of PostgreSQL host. | `localhost` |
+| `{$PG.PORT}` | PostgreSQL service port. | `5432` |
+| `{$PG.USER}` | PostgreSQL username. | `zbx_monitor` |
+| `{$PG.PASSWORD}` | PostgreSQL user password. | *(vacío)* |
+| `{$PG.DATABASE}` | Default PostgreSQL database for the connection. | `postgres` |
