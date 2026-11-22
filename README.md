@@ -476,25 +476,7 @@ sudo -u postgres psql -c "SELECT roleid::regrole, member::regrole FROM pg_auth_m
 
 Deberías ver el rol pg_monitor entre sus atributos de pertenencia.
 
-Intall credentials monitor on plugin
-```bash
-nano /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
-```
-```bash
-Plugins.PostgreSQL.Sessions.zbxagentdb.Uri=tcp://127.0.0.1:5432
-Plugins.PostgreSQL.Sessions.zbxagentdb.User=zbxagentdb
-Plugins.PostgreSQL.Sessions.zbxagentdb.Password=YOUR-AGENT-PASS
-```
-🛡️ Protect credential file
-```bash
-chown root:zabbix /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
-chmod 640 /etc/zabbix/zabbix_agent2.d/plugins.d/postgresql.conf
-```
 restart agent
-```bash
-systemctl restart zabbix-agent2
-systemctl status zabbix-agent2
-```
 
 Data collection → Hosts
 
@@ -506,17 +488,10 @@ PostgreSQL by Zabbix agent 2
 
 En Macros, configura:
 
-| Macro | Value |
-| :--- | :--- |
-| `{$PG.CONNSTRING.AGENT2}` | `zbxagentdb` |
-| `{$PG.USER}` | `zbxagentdb` |
-| `{$PG.PASSWORD}` | `YOUR-zbxagentdb-PASS` |
-| `{$PG.DATABASE}` | `postgres` |
-
 | Macro | Descripción | Valor |
 | :--- | :--- | :--- |
 | `{$PG.HOST}` | Hostname or IP of PostgreSQL host. | `localhost` |
 | `{$PG.PORT}` | PostgreSQL service port. | `5432` |
-| `{$PG.USER}` | PostgreSQL username. | `zbx_monitor` |
-| `{$PG.PASSWORD}` | PostgreSQL user password. | *(vacío)* |
+| `{$PG.USER}` | PostgreSQL username. | `zbxagentdb` |
+| `{$PG.PASSWORD}` | PostgreSQL user password. | `YOUR-zbxagentdb-PASSWORD` |
 | `{$PG.DATABASE}` | Default PostgreSQL database for the connection. | `postgres` |
