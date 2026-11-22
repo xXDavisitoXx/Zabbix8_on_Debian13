@@ -435,7 +435,34 @@ Edit the file /etc/zabbix/zabbix_mcp_server.conf and set the FrontendURL and All
 ```bash
 nano /etc/zabbix/zabbix_mcp_server.conf
 ```
+Add new FrontURL line
+```conf
+############ ZABBIX API CLIENT PARAMETERS #################
 
+### Option: FrontendURL
+#	Zabbix API endpoint URL: the Zabbix frontend URL ending with
+#	'api_jsonrpc.php'. Every tool and resource call is forwarded to this
+#	address, authenticated with the Zabbix API token supplied by the MCP
+#	client.
+#	Example: FrontendURL=https://instance.example.com/api_jsonrpc.php
+#
+# Mandatory: yes
+# Default:
+# FrontendURL=
+FrontendURL=http://127.0.0.1:8080/api_jsonrpc.php
+```
+Add your host or network acces
+```conf
+### Option: AllowedIP
+#	Incoming connections will be accepted only from the hosts listed here.
+#	Comma-delimited list of IP addresses, CIDR networks or DNS names.
+#
+# Mandatory: yes
+# Default:
+# AllowedIP=
+
+AllowedIP=127.0.0.1,::1,YOUR-HOST-IP-OR-NETWORK
+```
 Restart and enable the services
 ```bash
 sudo systemctl restart zabbix-mcp-server
