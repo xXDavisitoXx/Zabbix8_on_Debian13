@@ -502,9 +502,9 @@ En Macros, configura:
 
 | Macro | Value |
 | :--- | :--- |
-| `{$PG.CONNSTRING.AGENT2}` | `local` |
-| `{$PG.USER}` | `zbx_monitor` |
-| `{$PG.PASSWORD}` | `Tu contraseña` |
+| `{$PG.CONNSTRING.AGENT2}` | `zbxagentdb` |
+| `{$PG.USER}` | `zbxagentdb` |
+| `{$PG.PASSWORD}` | `YOUR-zbxagentdb-PASS` |
 | `{$PG.DATABASE}` | `postgres` |
 
 
