@@ -489,3 +489,22 @@ restart agent
 systemctl restart zabbix-agent2
 systemctl status zabbix-agent2
 ```
+
+Data collection → Hosts
+
+Selecciona el host que representa tu servidor Zabbix.
+
+En Templates, añade:
+
+PostgreSQL by Zabbix agent 2
+
+En Macros, configura:
+
+| Macro | Value |
+| :--- | :--- |
+| `{$PG.CONNSTRING.AGENT2}` | `local` |
+| `{$PG.USER}` | `zbx_monitor` |
+| `{$PG.PASSWORD}` | `Tu contraseña` |
+| `{$PG.DATABASE}` | `postgres` |
+
+
