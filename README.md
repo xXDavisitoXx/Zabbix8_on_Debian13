@@ -219,6 +219,177 @@ ypertable_schema | hypertable_name |    owner    | num_dimensions | num_chunks |
  public            | trends_uint     | usrzabbixdb |              1 |          0 | f                   |             | clock             | integer
 (10 rows)
 ```
+
+# Zabbix 8 and TimescaleDB – Verification Guide
+
+## 1. Check that TimescaleDB is installed
+
+Connect to PostgreSQL:
+
+```bash
+sudo -u postgres psql -d zabbix
+```
+
+Run the following SQL query:
+
+```sql
+SELECT extname, extversion
+FROM pg_extension
+WHERE extname = 'timescaledb';
+```
+Expected result:
+```text
+   extname   | extversion 
+-------------+------------
+ timescaledb | 2.29.3
+(1 row)
+```
+
+If the query returns no rows, TimescaleDB is not enabled in that database.
+
+## 2. Check that Zabbix tables are hypertables
+
+This is one of the most important checks.
+
+Run:
+```sql
+SELECT
+    hypertable_name,
+    num_chunks
+FROM timescaledb_information.hypertables
+ORDER BY hypertable_name;
+```
+```text
+ hypertable_name | num_chunks 
+-----------------+------------
+ auditlog        |          1
+ history         |          3
+ history_bin     |          0
+ history_json    |          0
+ history_log     |          0
+ history_str     |          3
+ history_text    |          0
+ history_uint    |          3
+ trends          |          1
+ trends_uint     |          1
+(10 rows)
+```
+
+You should find tables such as:
+- history
+- history_uint
+- history_str
+- history_text
+- history_log
+- trends
+- trends_uint
+Not every installation necessarily has all these tables.
+
+### How to interpret the results
+- If the tables appear, TimescaleDB is managing their data partitioning.
+- If no tables appear, having the extension installed does not mean Zabbix is actually using it.
+- If some tables are missing, the TimescaleDB schema configuration may be incomplete.
+
+## 3. Check that historical data is being inserted
+Run:
+```sql
+SELECT
+    'history' AS table_name,
+    COUNT(*) AS records
+FROM history
+UNION ALL
+SELECT
+    'history_uint',
+    COUNT(*)
+FROM history_uint
+UNION ALL
+SELECT
+    'trends',
+    COUNT(*)
+FROM trends
+UNION ALL
+SELECT
+    'trends_uint',
+    COUNT(*)
+FROM trends_uint;
+```
+```sql
+    table     | records 
+--------------+-----------
+ history      |     42672
+ history_uint |     22271
+ trends       |      1047
+ trends_uint  |       641
+(4 rows)
+```
+This query checks whether historical records exist in the main Zabbix history and trends tables.
+
+To check the number of chunks per hypertable, run:
+
+```sql
+SELECT
+    hypertable_name,
+    COUNT(*) AS chunks
+FROM timescaledb_information.chunks
+GROUP BY hypertable_name
+ORDER BY hypertable_name;
+```
+
+```text
+ hypertable_name | chunks 
+-----------------+--------
+ auditlog        |      1
+ history         |      3
+ history_str     |      3
+ history_uint    |      3
+ trends          |      1
+ trends_uint     |      1
+(6 rows)
+```
+
+
+## 4. Check compression configuration
+
+Run:
+
+```sql
+SELECT
+    hypertable_name,
+    compression_enabled
+FROM timescaledb_information.hypertables
+ORDER BY hypertable_name;
+```
+```text
+ hypertable_name | compression_enabled 
+-----------------+---------------------
+ auditlog        | t
+ history         | t
+ history_bin     | t
+ history_json    | t
+ history_log     | t
+ history_str     | t
+ history_text    | t
+ history_uint    | t
+ trends          | t
+ trends_uint     | t
+(10 rows)
+```
+
+A value of `true` means compression is enabled for that hypertable.
+
+To inspect the configured background jobs and compression policies, run:
+
+```sql
+SELECT *
+FROM timescaledb_information.jobs;
+```
+
+In an installation configured using the official Zabbix TimescaleDB scripts, you may find compression enabled and automatic policies configured to compress older data.
+
+**Important:** Having compression enabled does not necessarily mean that data has already been compressed. Actual compression depends on the configured policies, chunk age, and successful execution of background jobs.
+
+
+
 ### Skip TimescaleDB version restriction:
 ⚠️ This step is only necessary if you have installed software versions that Zabbix does not support by default. Use it at your own risk; we include it so you are aware that it exists.
 Uncomment and set the AllowUnsupportedDBVersions parameter to 1:
