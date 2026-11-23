@@ -471,7 +471,7 @@ sudo systemctl enable zabbix-mcp-server
 
 ### PostgresQL Monitor Plugin server
 ```bash
-sudo -u postgres createuser --pwprompt zbxagentdb
+sudo -u postgres createuser --pwprompt zbx_monitor
 ```
 ```text
 Enter password for new role:
@@ -482,7 +482,7 @@ Enter it again:
 
 Add permissions  user zbx_monitor to pg_monitor table:
 ```bash
-sudo -u postgres psql -c "GRANT pg_monitor TO zbxagentdb;"
+sudo -u postgres psql -c "GRANT pg_monitor TO zbx_monitor;"
 ```
 
 reload config
@@ -492,12 +492,12 @@ sudo -u postgres psql -c "SELECT pg_reload_conf();"
 
 check permissions:
 ```bash
-sudo -u postgres psql -c "SELECT roleid::regrole, member::regrole FROM pg_auth_members WHERE member = 'zbxagentdb'::regrole;"
+sudo -u postgres psql -c "SELECT roleid::regrole, member::regrole FROM pg_auth_members WHERE member = 'zbx_monitor'::regrole;"
 ```
 ```bash
   roleid   |   member   
 ------------+------------
- pg_monitor | zbxagentdb
+ pg_monitor | zbx_monitor
 (1 row)
 ```
 
@@ -519,6 +519,6 @@ En Macros, configura:
 | :--- | :--- | :--- |
 | `{$PG.HOST}` | Hostname or IP of PostgreSQL host. | `localhost` |
 | `{$PG.PORT}` | PostgreSQL service port. | `5432` |
-| `{$PG.USER}` | PostgreSQL username. | `zbxagentdb` |
+| `{$PG.USER}` | PostgreSQL username. | `zbx_monitor` |
 | `{$PG.PASSWORD}` | PostgreSQL user password. | `YOUR-zbxagentdb-PASSWORD` |
 | `{$PG.DATABASE}` | Default PostgreSQL database for the connection. | `postgres` |
